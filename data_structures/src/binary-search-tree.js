@@ -6,13 +6,18 @@ class BinarySearchTree {
   }
 
   depthFirstForEach(cb) {
-    /* Your code here */
-    
+    let arr = [this.value];
+    while (!arr.includes(this.getMin(arr))) {
+      arr.push(this.getMin(arr));
+    }
+    arr.pop();
+    for (let i = 0; i < arr.length; i++) {
+      cb(arr[i]);
+    }
   }
 
   breadthFirstForEach(cb) {
-    /* Your code here */
-
+    const queue = new Queue();
   }
 
   insert(value) {
@@ -63,6 +68,27 @@ class BinarySearchTree {
     }
 
     return max;
+  }
+
+  getMin(arr) {
+    let array = arr;
+    if (!array) {
+      array = [];
+    }
+    if (!this) return null;
+
+    let current = this;
+
+    while (current) {
+      if (current.left && !array.includes(current.left.value)) {
+        current = current.left;
+        array.push(current.value);
+      } else if (current.right && !array.includes(current.right.value)) {
+        current = current.right;
+        array.push(current.value);
+      } else return null;
+    }
+    return array;
   }
 }
 

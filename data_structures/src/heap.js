@@ -1,7 +1,7 @@
 const heapsort = arr => {
   /* Your code here */
   let heap = new Heap();
-  for (i in arr) {
+  for (let i = 0; i < arr.length; i++) {
     heap.insert(arr[i]);
   }
   return heap.storage;
