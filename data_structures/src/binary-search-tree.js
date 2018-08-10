@@ -6,18 +6,28 @@ class BinarySearchTree {
   }
 
   depthFirstForEach(cb) {
-    let arr = [this.value];
-    while (!arr.includes(this.getMin(arr))) {
-      arr.push(this.getMin(arr));
+    cb(this.value);
+    if (this.left) {
+      this.left.depthFirstForEach(cb);
     }
-    arr.pop();
-    for (let i = 0; i < arr.length; i++) {
-      cb(arr[i]);
+    if (this.right) {
+      this.right.depthFirstForEach(cb);
     }
   }
 
   breadthFirstForEach(cb) {
-    const queue = new Queue();
+    const queue = [];
+    queue.push(this);
+    while (queue.length) {
+      const currNode = queue.shift();
+      if (currNode.left) {
+        queue.push(currNode.left);
+      }
+      if (currNode.right) {
+        queue.push(currNode.right);
+      }
+      cb(currNode.value);
+    }
   }
 
   insert(value) {
